@@ -172,6 +172,14 @@
 	</References>
 	<Files>
 		<File
+			RelativePath=".\jklist.c"
+			>
+		</File>
+		<File
+			RelativePath=".\jklist.h"
+			>
+		</File>
+		<File
 			RelativePath=".\jkmath.c"
 			>
 		</File>
@@ -229,14 +237,6 @@
 		</File>
 		<File
 			RelativePath=".\jkscenenode.h"
-			>
-		</File>
-		<File
-			RelativePath=".\jkscenenodelist.c"
-			>
-		</File>
-		<File
-			RelativePath=".\jkscenenodelist.h"
 			>
 		</File>
 		<File

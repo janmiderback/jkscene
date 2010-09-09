@@ -23,7 +23,7 @@ THE SOFTWARE.
 #ifndef JKSCENENODE_H_
 #define JKSCENENODE_H_
 
-#include "jkscenenodelist.h"
+#include "jklist.h"
 
 typedef struct
 {

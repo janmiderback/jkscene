@@ -20,4 +20,49 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#include "jkscenenodelist.h"
+#ifndef JKLIST_H_
+#define JKLIST_H_
+
+
+typedef struct JKListNode_
+{
+    struct JKListNode_ *pPrev;
+    struct JKListNode_ *pNext;
+    void *pElement;
+} JKListNode;
+
+typedef struct
+{
+    JKListNode *pFirst;
+    JKListNode *pLast;
+} JKList;
+
+
+void jklist_init( JKList *pSelf );
+
+void jklist_insertFirst( JKList *pSelf, void *pElement );
+
+void jklist_insertLast( JKList *pSelf, void *pElement );
+
+void* jklist_removeFirst( JKList *pSelf );
+
+void* jklist_removeLast( JKList *pSelf );
+
+
+JKListNode* jklist_first( JKList *pSelf );
+
+JKListNode* jklist_last( JKList *pSelf );
+
+JKListNode* jklistnode_next( JKListNode *pSelf );
+
+JKListNode* jklistnode_prev( JKListNode *pSelf );
+
+void jklistnode_insertAfter( JKListNode *pSelf, void *pElement );
+
+void jklistnode_insertBefore( JKListNode *pSelf, void *pElement );
+
+void* jklistnode_remove( JKListNode *pSelf ); 
+
+
+
+#endif //JKLIST_H_
