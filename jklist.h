@@ -24,44 +24,114 @@ THE SOFTWARE.
 #define JKLIST_H_
 
 
-typedef struct JKListNode_
+typedef struct JKListNode_ JKListNode;
+
+/**
+    @brief
+    Linked list.
+ */
+typedef struct
+{
+    JKListNode *pNIL;
+    unsigned long count;
+} JKList;
+
+
+/**
+    @brief
+    List node of linked list. Contains pointers to next node in list,
+    together with a pointer to the actual element data.
+ */
+struct JKListNode_
 {
     struct JKListNode_ *pPrev;
     struct JKListNode_ *pNext;
     void *pElement;
-} JKListNode;
-
-typedef struct
-{
-    JKListNode *pFirst;
-    JKListNode *pLast;
-} JKList;
+};
 
 
+
+/*
+ * Operations
+ */
+
+/**
+    @brief
+    Initializes the list. Must be called before the list can be
+    used.
+ */
 void jklist_init( JKList *pSelf );
 
+
+/**
+    @brief
+    TODO
+ */
 void jklist_insertFirst( JKList *pSelf, void *pElement );
 
+
+/**
+    @brief
+    TODO
+ */
 void jklist_insertLast( JKList *pSelf, void *pElement );
 
+
+/**
+    @brief
+    TODO
+ */
 void* jklist_removeFirst( JKList *pSelf );
 
+
+/**
+    @brief
+    TODO
+ */
 void* jklist_removeLast( JKList *pSelf );
 
 
+/**
+    @brief
+    TODO
+ */
 JKListNode* jklist_first( JKList *pSelf );
 
+
+/**
+    @brief
+    TODO
+ */
 JKListNode* jklist_last( JKList *pSelf );
 
-JKListNode* jklistnode_next( JKListNode *pSelf );
 
-JKListNode* jklistnode_prev( JKListNode *pSelf );
+/**
+    @brief
+    TODO
+ */
+JKListNode* jklist_next( JKListNode *pNode );
 
-void jklistnode_insertAfter( JKListNode *pSelf, void *pElement );
 
-void jklistnode_insertBefore( JKListNode *pSelf, void *pElement );
+/**
+    @brief
+    TODO
+ */
+//JKListNode* jklist_prev( JKListNode *pNode );
 
-void* jklistnode_remove( JKListNode *pSelf ); 
+
+
+/**
+    @brief
+    TODO
+ */
+void* jklist_remove( void *pElement ); 
+
+
+unsigned long jklist_count( JKList *pSelf );
+
+
+int jklist_empty( JKList *pSelf );
+
 
 
 

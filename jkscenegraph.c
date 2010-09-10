@@ -88,5 +88,6 @@ void jkscenegraph_setActiveCamera( JKSceneGraph *pSelf, JKSceneNode *pCameraNode
 
 JKMatrix4Stack* jkscenegraph_getMatrixStack( JKSceneGraph *pSelf )
 {
-
+    //TODO
+    return NULL;
 }
