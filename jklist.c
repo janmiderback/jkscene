@@ -24,6 +24,7 @@ THE SOFTWARE.
 #include <stdlib.h>
 #include "jklist.h"
 
+////////////////////////////////////////////////////////////////////////////////
 
 void jklist_init( JKList *pSelf )
 {
@@ -36,6 +37,7 @@ void jklist_init( JKList *pSelf )
     pSelf->count = 0;
 }
 
+////////////////////////////////////////////////////////////////////////////////
 
 void jklist_insertFirst( JKList *pSelf, void *pElement )
 {
@@ -54,6 +56,7 @@ void jklist_insertFirst( JKList *pSelf, void *pElement )
     pSelf->count++;
 }
 
+////////////////////////////////////////////////////////////////////////////////
 
 void jklist_insertLast( JKList *pSelf, void *pElement )
 {
@@ -72,6 +75,7 @@ void jklist_insertLast( JKList *pSelf, void *pElement )
     pSelf->count++;
 }
 
+////////////////////////////////////////////////////////////////////////////////
 
 void* jklist_removeFirst( JKList *pSelf )
 {
@@ -95,41 +99,105 @@ void* jklist_removeFirst( JKList *pSelf )
     return pRetVal;
 }
 
+////////////////////////////////////////////////////////////////////////////////
 
 void* jklist_removeLast( JKList *pSelf )
 {
-    return NULL;
+    void *pRetVal = 0;
+    JKListNode *pLastNode;
+
+    assert( pSelf != NULL );
+
+    if( pSelf->count != 0 )
+    {
+        pLastNode = pSelf->pNIL->pPrev;
+        pRetVal = pLastNode->pElement;
+
+        pLastNode->pPrev->pNext = pLastNode->pNext;
+        pSelf->pNIL->pPrev = pLastNode->pPrev;
+        
+        free( pLastNode );
+        pSelf->count--;
+    }
+
+    return pRetVal;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+int jklist_remove( JKList *pSelf, void *pElement )
+{
+    JKListNode *pNode;
+
+    assert( pElement != NULL );
+
+    pNode = pSelf->pNIL->pNext;
+
+    while( pNode != pSelf->pNIL )
+    {
+        if( pNode->pElement == pElement )
+        {
+            pNode->pNext->pPrev = pNode->pPrev;
+            pNode->pPrev->pNext = pNode->pNext;
+        
+            free( pNode );
+            pSelf->count--;
+            return 1;
+        }
+
+        pNode = pNode->pNext;
+    }
+
+    return 0;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 JKListNode* jklist_first( JKList *pSelf )
 {
-    return NULL;
+    assert( pSelf != NULL );
+    
+    if( pSelf->count == 0 ) return NULL;
+
+    return pSelf->pNIL->pNext;
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 JKListNode* jklist_last( JKList *pSelf )
 {
-    return NULL;
+    assert( pSelf != NULL );
+
+    if( pSelf->count == 0 ) return NULL;
+
+    return pSelf->pNIL->pPrev;
 }
 
+////////////////////////////////////////////////////////////////////////////////
 
-JKListNode* jklist_next( JKListNode *pNode )
+JKListNode* jklist_next( JKList *pSelf, JKListNode *pNode )
 {
-    return NULL;
+    assert( pSelf != NULL );
+    assert( pNode != NULL );
+
+    if( pNode->pNext == pSelf->pNIL ) return NULL;
+
+    return pNode->pNext;
 }
 
+////////////////////////////////////////////////////////////////////////////////
 
-JKListNode* jklist_prev( JKListNode *pNode )
+JKListNode* jklist_prev( JKList *pSelf, JKListNode *pNode )
 {
-    return NULL;
+    assert( pSelf != NULL );
+    assert( pNode != NULL );
+
+    if( pNode->pPrev == pSelf->pNIL ) return NULL;
+
+    return pNode->pPrev;
 }
 
-
-void* jklist_remove( JKListNode *pNode )
-{
-    return NULL;
-}
-
+////////////////////////////////////////////////////////////////////////////////
 
 unsigned long jklist_count( JKList *pSelf )
 {
@@ -137,6 +205,7 @@ unsigned long jklist_count( JKList *pSelf )
     return pSelf->count;
 }
 
+////////////////////////////////////////////////////////////////////////////////
 
 int jklist_empty( JKList *pSelf )
 {

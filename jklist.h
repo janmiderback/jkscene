@@ -95,6 +95,13 @@ void* jklist_removeLast( JKList *pSelf );
     @brief
     TODO
  */
+int jklist_remove( JKList *pSelf, void *pElement );
+
+
+/**
+    @brief
+    TODO
+ */
 JKListNode* jklist_first( JKList *pSelf );
 
 
@@ -109,30 +116,28 @@ JKListNode* jklist_last( JKList *pSelf );
     @brief
     TODO
  */
-JKListNode* jklist_next( JKListNode *pNode );
+JKListNode* jklist_next( JKList *pSelf, JKListNode *pNode );
 
 
 /**
     @brief
     TODO
  */
-//JKListNode* jklist_prev( JKListNode *pNode );
-
+JKListNode* jklist_prev( JKList *pSelf, JKListNode *pNode );
 
 
 /**
     @brief
     TODO
  */
-void* jklist_remove( void *pElement ); 
-
-
 unsigned long jklist_count( JKList *pSelf );
 
 
+/**
+    @brief
+    TODO
+ */
 int jklist_empty( JKList *pSelf );
-
-
 
 
 #endif //JKLIST_H_
