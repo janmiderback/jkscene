@@ -39,6 +39,17 @@ void jklist_init( JKList *pSelf )
 
 ////////////////////////////////////////////////////////////////////////////////
 
+void jklist_deinit( JKList *pSelf )
+{
+    if( pSelf != NULL )
+    {
+        jklist_clear( pSelf );
+        free( pSelf->pNIL );
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void jklist_insertFirst( JKList *pSelf, void *pElement )
 {
     JKListNode *pNewNode;
@@ -211,4 +222,14 @@ int jklist_empty( JKList *pSelf )
 {
     assert( pSelf != NULL );
     return pSelf->count == 0;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+void jklist_clear( JKList *pSelf )
+{
+    assert( pSelf != NULL );
+
+    while( jklist_removeFirst( pSelf ) != NULL )
+        ;
 }

@@ -20,35 +20,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#ifndef JKLIST_H_
-#define JKLIST_H_
+#ifndef JKSTACK_H_
+#define JKSTACK_H_
 
 
-typedef struct JKListNode_ JKListNode;
+typedef struct JKStackNode_ JKStackNode;
 
 /**
     @brief
-    Linked list.
+    Stack.
  */
 typedef struct
 {
-    JKListNode *pNIL;
+    unsigned char *pBuf;
+    unsigned char *pTop;
+    size_t  elementSize;
+    size_t  bufSize;
     unsigned long count;
-} JKList;
-
-
-/**
-    @brief
-    List node of linked list. Contains pointers to next node in list,
-    together with a pointer to the actual element data.
- */
-struct JKListNode_
-{
-    struct JKListNode_ *pPrev;
-    struct JKListNode_ *pNext;
-    void *pElement;
-};
-
+    unsigned long allocCount;
+} JKStack;
 
 
 /*
@@ -57,102 +47,78 @@ struct JKListNode_
 
 /**
     @brief
-    Initializes the list. Must be called before the list can be
+    Initializes the stack. Must be called before the stack can be
     used.
  */
-void jklist_init( JKList *pSelf );
+void jkstack_init( JKStack       *pSelf,
+                   size_t         elementSize,
+                   unsigned long  preAllocCount );
 
 
 /**
     @brief
-    Deinitializes the list. Must be called before the JKList struct
+    Deinitializes the stack. Must be called before the JKStack struct
     is deallocated.
  */
-void jklist_deinit( JKList *pSelf );
+void jkstack_deinit( JKStack *pSelf );
+
+
+/**
+    @brief
+    Deinitializes the stack. Must be called before the JKStack struct
+    is deallocated.
+ */
+void jkstack_deinit( JKStack *pSelf );
 
 
 /**
     @brief
     TODO
  */
-void jklist_insertFirst( JKList *pSelf, void *pElement );
+void jkstack_push( JKStack *pSelf,
+                   void    *pElement );
 
 
 /**
     @brief
     TODO
  */
-void jklist_insertLast( JKList *pSelf, void *pElement );
+void* jkstack_pop( JKStack *pSelf );
 
 
 /**
     @brief
     TODO
  */
-void* jklist_removeFirst( JKList *pSelf );
+void jkstack_popn( JKStack *pSelf, unsigned long count );
 
 
 /**
     @brief
     TODO
  */
-void* jklist_removeLast( JKList *pSelf );
+void* jkstack_top( JKStack *pSelf );
 
 
 /**
     @brief
     TODO
  */
-int jklist_remove( JKList *pSelf, void *pElement );
+unsigned long jkstack_count( JKStack *pSelf );
 
 
 /**
     @brief
     TODO
  */
-JKListNode* jklist_first( JKList *pSelf );
+int jkstack_empty( JKStack *pSelf );
 
 
 /**
     @brief
     TODO
  */
-JKListNode* jklist_last( JKList *pSelf );
+void jkstack_clear( JKStack *pSelf );
 
 
-/**
-    @brief
-    TODO
- */
-JKListNode* jklist_next( JKList *pSelf, JKListNode *pNode );
-
-
-/**
-    @brief
-    TODO
- */
-JKListNode* jklist_prev( JKList *pSelf, JKListNode *pNode );
-
-
-/**
-    @brief
-    TODO
- */
-unsigned long jklist_count( JKList *pSelf );
-
-
-/**
-    @brief
-    TODO
- */
-int jklist_empty( JKList *pSelf );
-
-
-/**
-    @brief
-    TODO
- */
-void jklist_clear( JKList *pSelf );
-
-
-#endif //JKLIST_H_
+#endif //JKSTACK_H_

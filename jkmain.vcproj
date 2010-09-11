@@ -240,6 +240,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\jkstack.c"
+			>
+		</File>
+		<File
+			RelativePath=".\jkstack.h"
+			>
+		</File>
+		<File
 			RelativePath=".\main.c"
 			>
 		</File>
