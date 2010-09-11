@@ -23,8 +23,9 @@ THE SOFTWARE.
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
 #include "jkstack.h"
+
+////////////////////////////////////////////////////////////////////////////////
 
 static void grow( JKStack *pSelf );
 
@@ -64,6 +65,9 @@ void jkstack_deinit( JKStack *pSelf )
 void jkstack_push( JKStack *pSelf,
                    void    *pElement )
 {
+    assert( pSelf != NULL );
+    assert( pElement != NULL );
+
     if( pSelf->count == pSelf->allocCount )
     {
         grow( pSelf );
@@ -74,14 +78,13 @@ void jkstack_push( JKStack *pSelf,
     pSelf->count++;
 }
 
+////////////////////////////////////////////////////////////////////////////////
 
-/**
-    @brief
-    TODO
- */
 void* jkstack_pop( JKStack *pSelf )
 {
     void *pRetVal = NULL;
+
+    assert( pSelf != NULL );
 
     if( pSelf->count > 0 )
     {
@@ -93,24 +96,20 @@ void* jkstack_pop( JKStack *pSelf )
     return pRetVal;
 }
 
+////////////////////////////////////////////////////////////////////////////////
 
-/**
-    @brief
-    TODO
- */
 void jkstack_popn( JKStack *pSelf, unsigned long n )
 {
+    assert( pSelf != NULL );
+
     if( n > pSelf->count ) n = pSelf->count;
 
     pSelf->pTop -= pSelf->elementSize * n;
     pSelf->count -= n;
 }
 
+////////////////////////////////////////////////////////////////////////////////
 
-/**
-    @brief
-    TODO
- */
 void* jkstack_top( JKStack *pSelf )
 {
     assert( pSelf != NULL );
@@ -120,42 +119,43 @@ void* jkstack_top( JKStack *pSelf )
     return pSelf->pTop;
 }
 
+////////////////////////////////////////////////////////////////////////////////
 
-/**
-    @brief
-    TODO
- */
 unsigned long jkstack_count( JKStack *pSelf )
 {
     assert( pSelf != NULL );
+
     return pSelf->count;
 }
 
+////////////////////////////////////////////////////////////////////////////////
 
-/**
-    @brief
-    TODO
- */
 int jkstack_empty( JKStack *pSelf )
 {
     assert( pSelf != NULL );
+
     return pSelf->count == 0;
 }
 
+////////////////////////////////////////////////////////////////////////////////
 
-/**
-    @brief
-    TODO
- */
 void jkstack_clear( JKStack *pSelf )
 {
     assert( pSelf != NULL );
+
     pSelf->pTop = pSelf->pBuf;
     pSelf->count = 0;
 }
 
+////////////////////////////////////////////////////////////////////////////////
 
 static void grow( JKStack *pSelf )
 {
-    //TODO
+    assert( pSelf != NULL );
+
+    // Double the buffer size
+    pSelf->bufSize *= 2;
+    
+    pSelf->pBuf = realloc( pSelf->pBuf, pSelf->bufSize );
+    pSelf->pTop = pSelf->pBuf + (pSelf->elementSize * pSelf->count);
 }

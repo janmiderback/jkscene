@@ -55,6 +55,7 @@ void jklist_insertFirst( JKList *pSelf, void *pElement )
     JKListNode *pNewNode;
 
     assert( pSelf != NULL );
+
     pNewNode = malloc( sizeof( JKListNode ) );
     assert( pNewNode != NULL );
     pNewNode->pElement = pElement;
@@ -74,6 +75,7 @@ void jklist_insertLast( JKList *pSelf, void *pElement )
     JKListNode *pNewNode;
 
     assert( pSelf != NULL );
+
     pNewNode = malloc( sizeof( JKListNode ) );
     assert( pNewNode != NULL );
     pNewNode->pElement = pElement;
