@@ -30,7 +30,7 @@ THE SOFTWARE.
 
 #include "jkmath.h"
 #include "jkscenenode.h"
-#include "jkmatrixstack.h"
+#include "jkmatrix4stack.h"
 
 
 typedef struct

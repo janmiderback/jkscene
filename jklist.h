@@ -23,6 +23,7 @@ THE SOFTWARE.
 #ifndef JKLIST_H_
 #define JKLIST_H_
 
+#include <stdlib.h>
 
 typedef struct JKListNode_ JKListNode;
 
@@ -32,6 +33,7 @@ typedef struct JKListNode_ JKListNode;
  */
 typedef struct
 {
+    size_t elementSize;
     JKListNode *pNIL;
     unsigned long count;
 } JKList;
@@ -60,7 +62,7 @@ struct JKListNode_
     Initializes the list. Must be called before the list can be
     used.
  */
-void jklist_init( JKList *pSelf );
+void jklist_init( JKList *pSelf, size_t elementSize );
 
 
 /**
@@ -75,35 +77,37 @@ void jklist_deinit( JKList *pSelf );
     @brief
     TODO
  */
-void jklist_insertFirst( JKList *pSelf, void *pElement );
+void jklist_insertFirst( JKList *pSelf,
+                         const void *pElement );
 
 
 /**
     @brief
     TODO
  */
-void jklist_insertLast( JKList *pSelf, void *pElement );
+void jklist_insertLast( JKList *pSelf,
+                        const void *pElement );
 
 
 /**
     @brief
     TODO
  */
-void* jklist_removeFirst( JKList *pSelf );
+void jklist_removeFirst( JKList *pSelf );
 
 
 /**
     @brief
     TODO
  */
-void* jklist_removeLast( JKList *pSelf );
+void jklist_removeLast( JKList *pSelf );
 
 
 /**
     @brief
     TODO
  */
-int jklist_remove( JKList *pSelf, void *pElement );
+//int jklist_remove( JKList *pSelf, void *pElement );
 
 
 /**

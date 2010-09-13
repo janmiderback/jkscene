@@ -20,7 +20,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#include "jkmatrixstack.h"
+#include "jkstack.h"
 
-/** TODO */
-JKMatrix4* jkmatrix4stack_pop( void );
+int jkstack_test( void );
+
+////////////////////////////////////////////////////////////////////////////////
+
+int jkstack_test( void )
+{
+  int testOk = 1;
+
+  return 0;
+}

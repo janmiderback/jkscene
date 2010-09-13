@@ -28,6 +28,9 @@ THE SOFTWARE.
 #include <stdlib.h>
 #include <math.h>
 
+extern int jklist_test( void );
+
+
 #define WIDTH  640
 #define HEIGHT 480
 
@@ -249,6 +252,18 @@ static void main_loop()
 
 int main( void )
 {
+#ifdef UNIT_TEST
+#define RUN_UNIT_TEST( testFunc ) \
+    do { \
+        if( testFunc() ) printf( #testFunc " OK\n"); \
+        else     printf( #testFunc " FAILED!\n"); \
+    } while( 0 )
+
+    printf( "Runnning unit tests...\n" );
+    RUN_UNIT_TEST( jklist_test );
+    RUN_UNIT_TEST( jkstack_test );
+    return 0;
+#else
     setup_sdl();
     setup_opengl();
 
@@ -259,4 +274,5 @@ int main( void )
     main_loop();
         
     return 0;
+#endif
 }
