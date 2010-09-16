@@ -62,8 +62,8 @@ void jkstack_deinit( JKStack *pSelf )
 
 ////////////////////////////////////////////////////////////////////////////////
 
-void jkstack_push( JKStack *pSelf,
-                   void    *pElement )
+void jkstack_push( JKStack    *pSelf,
+                   const void *pElement )
 {
     assert( pSelf != NULL );
     assert( pElement != NULL );
@@ -121,7 +121,7 @@ void* jkstack_top( JKStack *pSelf )
 
 ////////////////////////////////////////////////////////////////////////////////
 
-unsigned long jkstack_count( JKStack *pSelf )
+unsigned long jkstack_count( const JKStack *pSelf )
 {
     assert( pSelf != NULL );
 
@@ -130,7 +130,7 @@ unsigned long jkstack_count( JKStack *pSelf )
 
 ////////////////////////////////////////////////////////////////////////////////
 
-int jkstack_empty( JKStack *pSelf )
+int jkstack_empty( const JKStack *pSelf )
 {
     assert( pSelf != NULL );
 

@@ -23,6 +23,7 @@ THE SOFTWARE.
 #ifndef JKSTACK_H_
 #define JKSTACK_H_
 
+#include <stdlib.h>
 
 typedef struct JKStackNode_ JKStackNode;
 
@@ -65,18 +66,10 @@ void jkstack_deinit( JKStack *pSelf );
 
 /**
     @brief
-    Deinitializes the stack. Must be called before the JKStack struct
-    is deallocated.
- */
-void jkstack_deinit( JKStack *pSelf );
-
-
-/**
-    @brief
     TODO
  */
-void jkstack_push( JKStack *pSelf,
-                   void    *pElement );
+void jkstack_push( JKStack    *pSelf,
+                   const void *pElement );
 
 
 /**
@@ -104,14 +97,14 @@ void* jkstack_top( JKStack *pSelf );
     @brief
     TODO
  */
-unsigned long jkstack_count( JKStack *pSelf );
+unsigned long jkstack_count( const JKStack *pSelf );
 
 
 /**
     @brief
     TODO
  */
-int jkstack_empty( JKStack *pSelf );
+int jkstack_empty( const JKStack *pSelf );
 
 
 /**

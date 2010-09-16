@@ -24,11 +24,108 @@ THE SOFTWARE.
 
 int jkstack_test( void );
 
+typedef struct
+{
+    float x;
+    float y;
+    int   n;
+} TestData;
+
 ////////////////////////////////////////////////////////////////////////////////
 
 int jkstack_test( void )
 {
-  int testOk = 1;
+    int testOk = 1;
+    JKStack stack;
+    TestData *pData;
+    unsigned long count;
+    int empty;
+    int i;
 
-  return 0;
+    jkstack_init( &stack, sizeof( TestData ), 10 );
+
+    count = jkstack_count( &stack );
+    empty = jkstack_empty( &stack );
+    testOk = count == 0 &&
+             empty &&
+             testOk;
+
+    // Push 10 items
+    for( i = 0; i < 10; i++ )
+    {
+        const TestData data = { (float)i, (float)i, i };
+
+        jkstack_push( &stack, &data );
+    }
+
+    count = jkstack_count( &stack );
+    empty = jkstack_empty( &stack );
+    testOk = count == 10 &&
+             !empty &&
+             testOk;
+
+    // Pop one element
+    pData = jkstack_pop( &stack );
+    count = jkstack_count( &stack );
+    testOk = count == 9 &&
+             pData->x == 9.0 &&
+             pData->y == 9.0 &&
+             pData->n == 9 &&
+             testOk;
+
+    // Pop three elements
+    jkstack_popn( &stack, 3 );
+    pData = jkstack_top( &stack );
+    count = jkstack_count( &stack );
+    testOk == count == 6 &&
+              pData->x == 5.0 &&
+              pData->y == 5.0 &&
+              pData->n == 5 &&
+              testOk;
+
+    // Pop all elements
+    jkstack_popn( &stack, 6 );
+    pData = jkstack_top( &stack );
+    count = jkstack_count( &stack );
+    empty = jkstack_empty( &stack );
+    testOk == count == 0 &&
+              empty &&
+              pData == NULL &&
+              testOk;
+              
+    // Pop more
+    jkstack_pop( &stack );
+    jkstack_popn( &stack, 2 );
+    count = jkstack_count( &stack );
+    empty = jkstack_empty( &stack );
+    testOk == count == 0 &&
+              empty &&
+              testOk;
+
+    // Push 15 elements
+    for( i = 0; i < 15; i++ )
+    {
+        const TestData data = { (float)i, (float)i, i };
+        jkstack_push( &stack, &data );
+    }
+
+    count = jkstack_count( &stack );
+    pData = jkstack_top( &stack );
+    testOk == count == 15 &&
+              pData->x == 14.0 &&
+              pData->y == 14.0 &&
+              pData->n == 14 &&
+              testOk;
+
+    // Clear
+    jkstack_clear( &stack );
+    count = jkstack_count( &stack );
+    empty = jkstack_empty( &stack );
+    testOk == count == 0 &&
+              empty &&
+              testOk;
+
+    jkstack_deinit( &stack );
+
+    return testOk;
 }
